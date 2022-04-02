@@ -153,9 +153,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackHoleObjectInstantiated: {fileID: 1777126565}
-  obstaclePrefab: {fileID: 4912061928769985210, guid: 75a0e2de850321f4b9114ea4f9dc54ca, type: 3}
-  spawnRate: 0.1
-  radius: 10
+  spaceShip: {fileID: 2069339781}
+  obstaclePrefab:
+  - {fileID: 4912061928769985210, guid: 75a0e2de850321f4b9114ea4f9dc54ca, type: 3}
+  - {fileID: 4912061928769985210, guid: b7867b4ff7aca1d489925474a2e358b7, type: 3}
+  - {fileID: 4912061928769985210, guid: e5a36d31de1754f40b5816c443de82a6, type: 3}
+  - {fileID: 4912061928769985210, guid: 29542da380f7235489e7097511b5946e, type: 3}
+  - {fileID: 4912061928769985210, guid: 12f8f805532aa4149bc6758ffd5606ef, type: 3}
+  orbPrefab:
+  - {fileID: 5168192799063713329, guid: bb63ca2c6ca9f224f86ad5200d81c99c, type: 3}
+  spawnRateObstacles: 1
+  spawnRateOrbs: 50
+  spawnDistanceFromShip: 5
 --- !u!4 &208449137
 Transform:
   m_ObjectHideFlags: 0
@@ -579,8 +588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityPull: 1
-  sizeScaleFactor: 0.01
-  gravityScaleFactor: 0.001
+  sizeScaleFactor: 0.02
+  gravityScaleFactor: 0.002
 --- !u!58 &1777126569
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -689,11 +698,17 @@ PrefabInstance:
       propertyPath: blackHoleObjectInstantiated
       value: 
       objectReference: {fileID: 1777126565}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8963898400893278499, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
 --- !u!4 &1991340561 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8963898400893278510, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
+  m_PrefabInstance: {fileID: 1991340560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2069339781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8963898400893278505, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
   m_PrefabInstance: {fileID: 1991340560}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2085396522
