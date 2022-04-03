@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (collider.GetComponent<ApplyGravitation>()) Destroy(collider.gameObject);
 
         shieldCount--;
-        if (shieldCount > 0) shieldsCounter.text = "Shields: " + shieldCount;
+        if (shieldCount >= 0) shieldsCounter.text = "Shields: " + shieldCount;
         if (shieldCount == 0) spriteRendererShields.gameObject.SetActive(false);
         if (shieldCount < 0) Destroy(gameObject);
     }
