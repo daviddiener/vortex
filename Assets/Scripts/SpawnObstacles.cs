@@ -20,6 +20,7 @@ public class SpawnObstacles : MonoBehaviour
 
     public void StartSpawner()
     {
+        RemoveAllItems();
         radius = Vector3.Distance(sunGameobject.transform.position, spaceShip.transform.position) + spawnDistanceFromShip;
         coroutine1 = StartCoroutine(SpawnObstacle(obstaclePrefab, spawnRateObstacles));
         coroutine2 = StartCoroutine(SpawnObstacle(orbPrefab, spawnRateOrbs));
@@ -64,7 +65,7 @@ public class SpawnObstacles : MonoBehaviour
         }
     }
 
-    public void RemoveAllItems()
+    void RemoveAllItems()
     {
         if (activeItems.Count > 0)
         {

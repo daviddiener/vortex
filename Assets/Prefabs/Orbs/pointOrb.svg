@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="pointOrb.svg"
+   inkscape:export-filename="C:\Users\Shadow\Documents\UnityWorkspace\Ludum-Dare-50\Assets\Prefabs\Orbs\pointOrb.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.0469406"
+     inkscape:cx="338.60565"
+     inkscape:cy="423.13766"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs2">
+    <rect
+       x="772.7277"
+       y="136.58846"
+       width="745.02794"
+       height="586.47071"
+       id="rect8562" />
+    <rect
+       x="333.64905"
+       y="352.56033"
+       width="156.69348"
+       height="266.10876"
+       id="rect3200" />
+    <rect
+       x="333.64905"
+       y="352.56033"
+       width="156.69348"
+       height="266.10876"
+       id="rect3200-5" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     sodipodi:insensitive="true">
+    <path
+       style="fill:#ffffff;stroke:#2d3200;stroke-width:3.02362;stroke-linecap:round;paint-order:markers stroke fill"
+       id="path848"
+       sodipodi:type="arc"
+       sodipodi:cx="99.089363"
+       sodipodi:cy="116.24458"
+       sodipodi:rx="49.915073"
+       sodipodi:ry="49.915073"
+       sodipodi:start="6.2592917"
+       sodipodi:end="6.2557313"
+       sodipodi:open="true"
+       sodipodi:arc-type="arc"
+       d="M 148.99019,115.05205 A 49.915073,49.915073 0 0 1 100.32632,166.14433 49.915073,49.915073 0 0 1 49.190739,117.52595 49.915073,49.915073 0 0 1 97.76358,66.34712 49.915073,49.915073 0 0 1 148.98563,114.87439"
+       inkscape:export-filename="C:\DATEN\GameDev\UnityWorkspace\Black_Hole_Escape\Assets\Prefabs\Orbs\shieldOrb.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="90.726654"
+       y="104.879"
+       id="text6974"><tspan
+         sodipodi:role="line"
+         id="tspan6972"
+         style="stroke-width:0.264583"
+         x="90.726654"
+         y="104.879" /></text>
+    <path
+       style="fill:#f0f031;fill-opacity:1;stroke-width:0.955164"
+       d="m 347.97975,625.63925 c -76.2382,-11.6332 -136.99808,-66.50252 -155.98354,-140.86123 -4.00342,-15.67983 -5.13324,-25.67292 -5.13324,-45.40257 0,-30.92198 5.32413,-54.63427 18.38062,-81.86244 11.65362,-24.30263 33.09117,-50.78264 54.08344,-66.80477 52.04996,-39.72658 119.97943,-50.23344 180.04842,-27.84863 58.44518,21.77969 102.29846,70.54355 117.50954,130.66797 21.87922,86.48133 -20.54565,176.5217 -101.47524,215.36587 -14.16961,6.80105 -28.24439,11.57312 -43.95485,14.90293 -10.16834,2.15517 -14.56207,2.52995 -33.20995,2.83273 -15.21905,0.24712 -24.05186,-0.0417 -30.2652,-0.98986 z"
+       id="path9663"
+       transform="scale(0.26458333)" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="S"
+     sodipodi:insensitive="true">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-6.2577221,-9.5034084)"
+       id="text3198"
+       style="font-style:normal;font-weight:normal;font-size:226.667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3200-5);fill:#000000;fill-opacity:1;stroke:none"
+       inkscape:export-filename="C:\DATEN\GameDev\UnityWorkspace\Black_Hole_Escape\Assets\Prefabs\Orbs\shieldOrb.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text8560"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect8562);fill:#000000;fill-opacity:1;stroke:none" />
+    <circle
+       style="fill:#ffe680;fill-opacity:1;stroke:#000000;stroke-width:0.213817;stroke-opacity:1"
+       id="path9724"
+       cx="99.319138"
+       cy="116.2514"
+       r="45.236965" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ffe680;fill-opacity:1;stroke:#000000;stroke-width:7.42677;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path9886"
+       inkscape:flatsided="false"
+       sodipodi:sides="5"
+       sodipodi:cx="298.01117"
+       sodipodi:cy="350.5452"
+       sodipodi:r1="150.91895"
+       sodipodi:r2="75.459473"
+       sodipodi:arg1="0.93362425"
+       sodipodi:arg2="1.5619428"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 387.79659,471.85103 -89.11735,-45.84932 -88.29156,47.42006 16.06653,-98.92385 -72.38275,-69.31666 99.047,-15.28898 43.55656,-90.26011 45.14789,89.47474 99.30219,13.53284 -71.14407,70.58742 z"
+       transform="matrix(0.26458333,0,0,0.26458333,20.72308,23.755725)"
+       inkscape:transform-center-x="0.10924567"
+       inkscape:transform-center-y="-3.7089902" />
+  </g>
+</svg>

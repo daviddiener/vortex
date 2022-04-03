@@ -5,6 +5,7 @@ using UnityEngine;
 public class ApplyGravitation : MonoBehaviour
 {
     public bool isShieldOrb = false;
+    public bool isPointOrb = false;
     public GameObject sunGameobject;
 
     [SerializeField] private float scaleFactor = 1;
@@ -32,7 +33,7 @@ public class ApplyGravitation : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
 
-        if (!isShieldOrb)
+        if (!isShieldOrb && !isPointOrb)
         {
             // Scale when item comes near center
             transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * Vector3.Distance(sunGameobject.transform.position, transform.position) + new Vector3(1f, 1f, 1f);    

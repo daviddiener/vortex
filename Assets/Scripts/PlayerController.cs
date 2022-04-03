@@ -70,6 +70,13 @@ public class PlayerController : MonoBehaviour
 
             return;
         }
+         if (ag != null && ag.isPointOrb)
+        {
+            Destroy(collider.gameObject);
+            menuManager.AddBonusPoints(1);
+
+            return;
+        }
 
         // Meteor collision
         if (collider.GetComponent<ApplyGravitation>())
