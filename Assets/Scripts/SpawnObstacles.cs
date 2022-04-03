@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SpawnObstacles : MonoBehaviour
 {
-    [SerializeField] private GameObject blackHoleObjectInstantiated;
-    [SerializeField] private GameObject spaceShip;
+    public GameObject spaceShip;
+
+    [SerializeField] private GameObject sunGameobject;
     [SerializeField] private GameObject[] obstaclePrefab;
     [SerializeField] private GameObject[] orbPrefab;
     [SerializeField] private float spawnRateObstacles;
@@ -13,18 +14,26 @@ public class SpawnObstacles : MonoBehaviour
     [SerializeField] private float spawnDistanceFromShip;
 
     private float radius;
+    private Coroutine coroutine1;
+    private Coroutine coroutine2;
+    private List<GameObject> activeItems = new List<GameObject>();
 
-
-    private void Start()
+    public void StartSpawner()
     {
-        radius = Vector3.Distance(blackHoleObjectInstantiated.transform.position, spaceShip.transform.position) + spawnDistanceFromShip;
-        StartCoroutine(SpawnObstacle(obstaclePrefab, spawnRateObstacles));
-        StartCoroutine(SpawnObstacle(orbPrefab, spawnRateOrbs));
+        radius = Vector3.Distance(sunGameobject.transform.position, spaceShip.transform.position) + spawnDistanceFromShip;
+        coroutine1 = StartCoroutine(SpawnObstacle(obstaclePrefab, spawnRateObstacles));
+        coroutine2 = StartCoroutine(SpawnObstacle(orbPrefab, spawnRateOrbs));
+    }
+
+    public void StopSpawner()
+    {
+        StopCoroutine(coroutine1);
+        StopCoroutine(coroutine2);        
     }
 
     private void Update()
     {
-        if (spaceShip) radius = Vector3.Distance(blackHoleObjectInstantiated.transform.position, spaceShip.transform.position) + spawnDistanceFromShip;
+        if (spaceShip) radius = Vector3.Distance(sunGameobject.transform.position, spaceShip.transform.position) + spawnDistanceFromShip;
     }
 
 
@@ -37,18 +46,32 @@ public class SpawnObstacles : MonoBehaviour
             float angle = Random.Range(0, 360);
             Vector3 newPos = new Vector2(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius);
             GameObject go = Instantiate(items[Random.Range(0, items.Length)], newPos, Quaternion.identity, transform);
-            
+
             // Assign start params
-            go.GetComponent<ApplyGravitation>().blackHoleObject = blackHoleObjectInstantiated;
+            go.GetComponent<ApplyGravitation>().sunGameobject = sunGameobject;
 
             // Rotate towards center
             var offset = 90f;
-            Vector2 direction = blackHoleObjectInstantiated.transform.position - go.transform.position;
+            Vector2 direction = sunGameobject.transform.position - go.transform.position;
             direction.Normalize();
             float rotAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             go.transform.rotation = Quaternion.Euler(Vector3.forward * (rotAngle + offset));
 
+            // track in list
+            activeItems.Add(go);
+
             yield return new WaitForSeconds(spawnrate / radius);
+        }
+    }
+
+    public void RemoveAllItems()
+    {
+        if (activeItems.Count > 0)
+        {
+            foreach (GameObject go in activeItems)
+            {
+                Destroy(go);
+            }
         }
     }
 

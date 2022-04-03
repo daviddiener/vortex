@@ -5,7 +5,7 @@ using UnityEngine;
 public class ApplyGravitation : MonoBehaviour
 {
     public bool isShieldOrb = false;
-    public GameObject blackHoleObject;
+    public GameObject sunGameobject;
 
     [SerializeField] private float scaleFactor = 1;
     [SerializeField] private float rotationSpeed = -0.5f;
@@ -19,7 +19,7 @@ public class ApplyGravitation : MonoBehaviour
     void Update()
     {
         // Pull towards center
-        transform.position = Vector3.MoveTowards(transform.position, blackHoleObject.transform.position, Time.deltaTime * blackHoleObject.GetComponent<BlackHoleGravitation>().gravityPull * speedModifier);
+        transform.position = Vector3.MoveTowards(transform.position, sunGameobject.transform.position, Time.deltaTime * sunGameobject.GetComponent<BlackHoleGravitation>().gravityPull * speedModifier);
 
         // Rotate left
         Vector3 movement = new Vector3(rotationSpeed, 0, 0);
@@ -27,7 +27,7 @@ public class ApplyGravitation : MonoBehaviour
         transform.Translate(movement);
 
         var offset = 90f;
-        Vector2 direction = blackHoleObject.transform.position - transform.position;
+        Vector2 direction = sunGameobject.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
@@ -35,7 +35,7 @@ public class ApplyGravitation : MonoBehaviour
         if (!isShieldOrb)
         {
             // Scale when item comes near center
-            transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * Vector3.Distance(blackHoleObject.transform.position, transform.position) + new Vector3(1f, 1f, 1f);    
+            transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor) * Vector3.Distance(sunGameobject.transform.position, transform.position) + new Vector3(1f, 1f, 1f);    
         }
     }
 }
