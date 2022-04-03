@@ -15,6 +15,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Transform entityParent;
     [SerializeField] private Vector3 spawnLocation;
     [SerializeField] private SpawnObstacles spawner;
+    [SerializeField] private UploadScore uploadScore;
+    [SerializeField] private Score score;
 
     [Header("References - UI")]
     [SerializeField] private GameObject counterParent;
@@ -22,9 +24,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Text bonusCounter;
     [SerializeField] private Text timeCounter;
     [SerializeField] private GameObject selectionUI;
-    [SerializeField] private GameObject deadText;
+    [SerializeField] private GameObject gameOverParent;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text username;
     
-    private int overallPoints = 0;
     private int bonusPoints = 0;
     private float timer = 0;
     private bool countTime = false;
@@ -33,7 +36,7 @@ public class MenuManager : MonoBehaviour
         AddBonusPoints(0);
     }
 
-    void Update(){
+    void Update() {
         if (countTime) {
             timer += Time.deltaTime;
             TimeSpan ts = TimeSpan.FromSeconds(timer);
@@ -41,8 +44,15 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void SelectShip(int selection)
-    {
+    public void SelectShip(int selection) {
+        // start time count
+        countTime = true;
+
+        // reset points
+        timer = 0;
+        bonusPoints = 0;
+        AddBonusPoints(0); // reset UI
+
         // Instantiate ship
         GameObject ship = Instantiate(shipPrefabs[selection], spawnLocation, Quaternion.identity, entityParent);
         
@@ -63,15 +73,10 @@ public class MenuManager : MonoBehaviour
         // Dis-/Enable UI Elements
         counterParent.SetActive(true);
         selectionUI.SetActive(false);
-        deadText.SetActive(false);
-
-        // start time count
-        countTime = true;
-
+        gameOverParent.SetActive(false);
     }
 
-    public void GameOver()
-    {
+    public void GameOver() {
         // Center camera
         cameraFollow.Target = sunGameobject.transform;
         cameraFollow.useSmoothTimeSun();
@@ -85,18 +90,21 @@ public class MenuManager : MonoBehaviour
 
         counterParent.SetActive(false);
         selectionUI.SetActive(true);
-        deadText.SetActive(true);
+        gameOverParent.SetActive(true);
 
-        //Submit points and then reset
+        //show points
         countTime = false;
-        bonusPoints = 0;
-        AddBonusPoints(0); // reset UI
-        overallPoints = 0;
-        timer = 0;
+        TimeSpan ts = TimeSpan.FromSeconds(timer);
+        scoreText.text = String.Format("Time: {0} + Bonus points: {1} = Score: {2}", ts.Minutes + ":" + ts.Seconds + ":" + ts.Milliseconds, bonusPoints, ts.TotalSeconds+bonusPoints);
     }
 
     public void AddBonusPoints(int value) {
         bonusPoints += value;
         bonusCounter.text = "Bonus points: " + bonusPoints.ToString();
+    }
+
+    public void SubmitScore(){
+        TimeSpan ts = TimeSpan.FromSeconds(timer);
+        uploadScore.PostNewScore(new Score(username.text, ts.TotalSeconds+bonusPoints));
     }
 }
