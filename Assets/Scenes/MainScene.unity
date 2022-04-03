@@ -260,8 +260,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1202402798}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -312,6 +311,7 @@ MonoBehaviour:
   Target: {fileID: 1991340561}
   camTransform: {fileID: 735916032}
   SmoothTime: 0.3
+  followRotation: 1
 --- !u!1 &908587164
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1202402798}
   - component: {fileID: 1202402797}
+  - component: {fileID: 1202402799}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -567,12 +568,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202402796}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 1}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
-  m_Father: {fileID: 735916032}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202402799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202402796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fd597f577765541aef7268a287ea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 735916032}
+  camTransform: {fileID: 1202402798}
+  SmoothTime: 0
+  followRotation: 0
 --- !u!1 &1777126565
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,10 +734,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8963898400893278499, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
-      propertyPath: blackHoleObject
-      value: 
-      objectReference: {fileID: 1777126565}
     - target: {fileID: 8963898400893278505, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
       propertyPath: m_Name
       value: SpaceShip2
@@ -774,15 +787,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1201455549}
     - target: {fileID: 8963898400893278511, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
-      propertyPath: particleSystem.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8963898400893278511, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
       propertyPath: blackHoleObjectInstantiated
       value: 
       objectReference: {fileID: 1777126565}
-    m_RemovedComponents:
-    - {fileID: 8963898400893278499, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 004637da26452734dba1befcb3fd50d2, type: 3}
 --- !u!4 &1991340561 stripped
 Transform:

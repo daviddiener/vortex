@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16698630135619348}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.119, y: -0.328, z: 1}
+  m_LocalPosition: {x: 0.119, y: -0.328, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8963898400893278510}
@@ -4830,7 +4830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8963898400309711526}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.1163, y: -0.328, z: 1}
+  m_LocalPosition: {x: -0.1163, y: -0.328, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8963898400893278510}
@@ -9703,7 +9703,6 @@ GameObject:
   - component: {fileID: 8963898400893278498}
   - component: {fileID: 8963898400893278509}
   - component: {fileID: 8963898400893278511}
-  - component: {fileID: 8963898400893278499}
   m_Layer: 0
   m_Name: SpaceShip2
   m_TagString: Untagged
@@ -9839,18 +9838,3 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8963898400893278508}
   spriteRendererShields: {fileID: 8963898400479890228}
   shieldsCounter: {fileID: 0}
---- !u!114 &8963898400893278499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8963898400893278505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 872b6f84e9380ea4b92e34ce9cfc17ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSpaceShip: 1
-  scaleFactor: 1
-  blackHoleObject: {fileID: 0}

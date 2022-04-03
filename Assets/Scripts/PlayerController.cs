@@ -46,8 +46,9 @@ public class PlayerController : MonoBehaviour
         //Animation
         foreach (ParticleSystem p in particleSystem)
         {
-            if (inputY > 0) p.startLifetime = 2;
-            else p.startLifetime = 0.5f;
+            var main = p.main;
+            if (inputY > 0) main.startLifetime = 2;
+            else main.startLifetime = 0.5f;
         }
 
         if (inputX < 0) spriteRenderer.sprite = spaceShipLeft;
