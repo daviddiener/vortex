@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityToolbag;
 
 public class MenuManager : MonoBehaviour
 {
@@ -27,8 +28,16 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject gameOverParent;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text username;
-    [SerializeField] private GameObject[] scorePrefabs;
+    [SerializeField] private Button submitButton;
+
+    [Header("Score-Prefabs")]
+    public GameObject[] scorePrefab1;
+    public GameObject[] scorePrefab2;
+    public GameObject[] scorePrefab3;
+    public GameObject[] scorePrefab4;
+    public GameObject[] scorePrefab5;
     
+    private List<GameObject[]> scorePrefabs = new List<GameObject[]>();
     private int bonusPoints = 0;
     private float timer = 0;
     private bool countTime = false;
@@ -36,6 +45,12 @@ public class MenuManager : MonoBehaviour
 
     void Start() {
         AddBonusPoints(0);
+        scorePrefabs.Add(scorePrefab1);
+        scorePrefabs.Add(scorePrefab2);
+        scorePrefabs.Add(scorePrefab3);
+        scorePrefabs.Add(scorePrefab4);
+        scorePrefabs.Add(scorePrefab5);
+        LoadScores();
     }
 
     void Update() {
@@ -90,6 +105,9 @@ public class MenuManager : MonoBehaviour
         // Stop spawner
         spawner.StopSpawner();
 
+        // UI Elements
+        LoadScores();
+        submitButton.enabled = true;
         counterParent.SetActive(false);
         selectionUI.SetActive(true);
         gameOverParent.SetActive(true);
@@ -106,20 +124,51 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SubmitScore(){
+        submitButton.enabled = false;
         TimeSpan ts = TimeSpan.FromSeconds(timer);
         uploadScore.PostNewScore(new Score(username.text, ts.TotalSeconds+bonusPoints));
+        LoadScores();
     }
 
     public void LoadNextScores(){
         scorePage++;
-        uploadScore.GetScoresOnPage(scorePage);
+        LoadScores();
     }
 
     public void LoadPreviousScores(){
         if (scorePage > 1) {
             scorePage--;
-            uploadScore.GetScoresOnPage(scorePage);
+            LoadScores();
         }
+        
+    }
+
+    public void LoadScores(){
+        Future<List<Score>> scoreList = uploadScore.GetScoresOnPageFuture(scorePage, scorePrefabs.Count);
+        scoreList.OnSuccess((scoreList) => {
+            // abort if page empty
+            if(scoreList.value.Count < 1) {
+                scorePage--;
+                return;
+            }
+
+            // Place - everywhere if page not full
+            if(scoreList.value.Count < scorePrefabs.Count) {
+                for(int i = 0; i < scorePrefabs.Count; ++i) {
+                    scorePrefabs[i][0].GetComponent<Text>().text = ((i+1)+((scorePage-1)*scorePrefabs.Count)).ToString();
+                    scorePrefabs[i][1].GetComponent<Text>().text = "-";
+                    scorePrefabs[i][2].GetComponent<Text>().text = "-";
+                }
+                
+            }
+
+            // populate board
+            for(int i = 0; i < scoreList.value.Count; ++i) {
+                scorePrefabs[i][0].GetComponent<Text>().text = ((i+1)+((scorePage-1)*scorePrefabs.Count)).ToString();
+                scorePrefabs[i][1].GetComponent<Text>().text = scoreList.value[i].username;
+                scorePrefabs[i][2].GetComponent<Text>().text = scoreList.value[i].score.ToString();
+            }
+        });
     }
     
 }
