@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public Text shieldsCounter;
     public GameObject sunGameobject;
     public MenuManager menuManager;
+    public AudioManager audioManager;
 
     [SerializeField] private Vector2 speed;
     [SerializeField] private new ParticleSystem[] particleSystem;
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
         ApplyGravitation ag = collider.GetComponent<ApplyGravitation>();
         if (ag != null && ag.isShieldOrb)
         {
+            audioManager.playItemPickup();
             Destroy(collider.gameObject);
             shieldCount++;
             if (shieldCount > 0) shieldsCounter.text = "Shields: " + shieldCount;
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
         }
          if (ag != null && ag.isPointOrb)
         {
+            audioManager.playItemPickup();
             Destroy(collider.gameObject);
             menuManager.AddBonusPoints(1);
 
@@ -81,10 +84,16 @@ public class PlayerController : MonoBehaviour
         // Meteor collision
         if (collider.GetComponent<ApplyGravitation>())
         {
+            
             Destroy(collider.gameObject);
             shieldCount--;
             if (shieldCount >= 0) shieldsCounter.text = "Shields: " + shieldCount;
-            if (shieldCount == 0) spriteRendererShields.gameObject.SetActive(false);
+            if (shieldCount == 0) {
+                audioManager.playShieldOffSound();
+                spriteRendererShields.gameObject.SetActive(false);
+            } else {
+                audioManager.playDamageSound();
+            }
 
             // Death
             if (shieldCount < 0) ShipGameOver();
@@ -98,6 +107,7 @@ public class PlayerController : MonoBehaviour
 
     public void ShipGameOver()
     {
+        audioManager.playShieldOffSound();
         Destroy(gameObject);
         menuManager.GameOver();
     }

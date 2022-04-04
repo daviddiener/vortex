@@ -9,8 +9,9 @@ public class SpawnObstacles : MonoBehaviour
     [SerializeField] private GameObject sunGameobject;
     [SerializeField] private GameObject[] obstaclePrefab;
     [SerializeField] private GameObject[] orbPrefab;
-    [SerializeField] private float spawnRateObstacles;
-    [SerializeField] private float spawnRateOrbs;
+    [SerializeField] private float spawnRateObstaclesPerSecond;
+    [SerializeField] private float spawnRateOrbsPerSecond;
+    [SerializeField] private float spawnRateIncreasePerSecond;
     [SerializeField] private float spawnDistanceFromShip;
 
     private float radius;
@@ -22,8 +23,8 @@ public class SpawnObstacles : MonoBehaviour
     {
         RemoveAllItems();
         radius = Vector3.Distance(sunGameobject.transform.position, spaceShip.transform.position) + spawnDistanceFromShip;
-        coroutine1 = StartCoroutine(SpawnObstacle(obstaclePrefab, spawnRateObstacles));
-        coroutine2 = StartCoroutine(SpawnObstacle(orbPrefab, spawnRateOrbs));
+        coroutine1 = StartCoroutine(SpawnObstacle(obstaclePrefab, spawnRateObstaclesPerSecond));
+        coroutine2 = StartCoroutine(SpawnObstacle(orbPrefab, spawnRateOrbsPerSecond));
     }
 
     public void StopSpawner()
@@ -60,8 +61,8 @@ public class SpawnObstacles : MonoBehaviour
 
             // track in list
             activeItems.Add(go);
-
-            yield return new WaitForSeconds(spawnrate / radius);
+            spawnrate += spawnRateIncreasePerSecond;
+            yield return new WaitForSeconds(1/(spawnrate / radius));
         }
     }
 

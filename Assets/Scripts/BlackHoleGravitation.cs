@@ -8,6 +8,7 @@ public class BlackHoleGravitation : MonoBehaviour
     public float lerpSpeed = 10;
     public float sizeScaleFactor = 0.01f;
     public float gravityScaleFactor = 0.001f;
+    public AudioManager audioManager;
 
     [HideInInspector] public float gravityPull;
 
@@ -18,7 +19,8 @@ public class BlackHoleGravitation : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-       Destroy(collider.gameObject);
+        //audioManager.playPopSound();
+        Destroy(collider.gameObject);
 
         transform.localScale += new Vector3(1, 1, 1) * sizeScaleFactor;
         gravityPull += gravityScaleFactor;

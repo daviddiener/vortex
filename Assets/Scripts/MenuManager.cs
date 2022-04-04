@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private SpawnObstacles spawner;
     [SerializeField] private UploadScore uploadScore;
     [SerializeField] private Score score;
+    [SerializeField] private AudioManager audioManager;
 
     [Header("References - UI")]
     [SerializeField] private GameObject counterParent;
@@ -78,6 +79,7 @@ public class MenuManager : MonoBehaviour
         pc.shieldsCounter = shieldsCounter;
         pc.sunGameobject = sunGameobject;
         pc.menuManager = this;
+        pc.audioManager = audioManager;
 
         cameraFollow.Target = ship.transform;
         cameraFollow.useSmoothTimeShip();
@@ -91,6 +93,9 @@ public class MenuManager : MonoBehaviour
         counterParent.SetActive(true);
         selectionUI.SetActive(false);
         gameOverParent.SetActive(false);
+
+        // Play sound
+        audioManager.playGameStart();
     }
 
     public void GameOver() {
@@ -124,6 +129,7 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SubmitScore(){
+        audioManager.playClickSound();
         submitButton.enabled = false;
         TimeSpan ts = TimeSpan.FromSeconds(timer);
         uploadScore.PostNewScore(new Score(username.text, ts.TotalSeconds+bonusPoints));
@@ -131,11 +137,13 @@ public class MenuManager : MonoBehaviour
     }
 
     public void LoadNextScores(){
+        audioManager.playClickSound();
         scorePage++;
         LoadScores();
     }
 
     public void LoadPreviousScores(){
+        audioManager.playClickSound();
         if (scorePage > 1) {
             scorePage--;
             LoadScores();
@@ -148,7 +156,9 @@ public class MenuManager : MonoBehaviour
         scoreList.OnSuccess((scoreList) => {
             // abort if page empty
             if(scoreList.value.Count < 1) {
-                scorePage--;
+                if (scorePage > 1) {
+                    scorePage--;
+                }
                 return;
             }
 
