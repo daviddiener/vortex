@@ -27,10 +27,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject gameOverParent;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text username;
+    [SerializeField] private GameObject[] scorePrefabs;
     
     private int bonusPoints = 0;
     private float timer = 0;
     private bool countTime = false;
+    private int scorePage = 1;
 
     void Start() {
         AddBonusPoints(0);
@@ -107,4 +109,17 @@ public class MenuManager : MonoBehaviour
         TimeSpan ts = TimeSpan.FromSeconds(timer);
         uploadScore.PostNewScore(new Score(username.text, ts.TotalSeconds+bonusPoints));
     }
+
+    public void LoadNextScores(){
+        scorePage++;
+        uploadScore.GetScoresOnPage(scorePage);
+    }
+
+    public void LoadPreviousScores(){
+        if (scorePage > 1) {
+            scorePage--;
+            uploadScore.GetScoresOnPage(scorePage);
+        }
+    }
+    
 }
