@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityToolbag;
 
@@ -16,7 +17,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Transform entityParent;
     [SerializeField] private Vector3 spawnLocation;
     [SerializeField] private SpawnObstacles spawner;
-    [SerializeField] private UploadScore uploadScore;
     [SerializeField] private Score score;
     [SerializeField] private AudioManager audioManager;
 
@@ -43,6 +43,7 @@ public class MenuManager : MonoBehaviour
     private float timer = 0;
     private bool countTime = false;
     private int scorePage = 1;
+    private const string backend_URI = "https://vortex-backend.herokuapp.com/scores";
 
     void Start() {
         AddBonusPoints(0);
@@ -111,7 +112,7 @@ public class MenuManager : MonoBehaviour
         spawner.StopSpawner();
 
         // UI Elements
-        LoadScores();
+        StartCoroutine(LoadScores());
         submitButton.enabled = true;
         counterParent.SetActive(false);
         selectionUI.SetActive(true);
@@ -129,56 +130,81 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SubmitScore(){
+        StartCoroutine(SubmitScoreRequest());    
+    }
+
+    public IEnumerator SubmitScoreRequest(){
         audioManager.playClickSound();
         submitButton.enabled = false;
         TimeSpan ts = TimeSpan.FromSeconds(timer);
-        uploadScore.PostNewScore(new Score(username.text, ts.TotalSeconds+bonusPoints));
-        LoadScores();
+        Score newScore = new Score();
+        newScore.username = username.text;
+        newScore.score = ts.TotalSeconds+bonusPoints;
+
+        
+        string json = JsonUtility.ToJson(newScore);
+        var req = new UnityWebRequest(backend_URI, "POST");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        req.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        req.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        req.SetRequestHeader("Content-Type", "application/json");
+        yield return req.SendWebRequest();
+
+        // if (req.result == UnityWebRequest.Result.ConnectionError)
+        // {
+        //     Debug.Log("Error While Sending: " + req.error);
+        // }
+        // else
+        // {
+        //     Debug.Log("Received: " + req.downloadHandler.text);
+        // }
+        
+        StartCoroutine(LoadScores());    
     }
 
     public void LoadNextScores(){
         audioManager.playClickSound();
         scorePage++;
-        LoadScores();
+        StartCoroutine(LoadScores());    
     }
 
     public void LoadPreviousScores(){
         audioManager.playClickSound();
         if (scorePage > 1) {
             scorePage--;
-            LoadScores();
-        }
-        
+        StartCoroutine(LoadScores());        
+        }   
     }
 
-    public void LoadScores(){
-        Future<List<Score>> scoreList = uploadScore.GetScoresOnPageFuture(scorePage, scorePrefabs.Count);
-        scoreList.OnSuccess((scoreList) => {
-            // abort if page empty
-            if(scoreList.value.Count < 1) {
-                if (scorePage > 1) {
-                    scorePage--;
-                }
-                return;
-            }
+    public IEnumerator LoadScores(){
+        UnityWebRequest request = UnityWebRequest.Get(backend_URI+"?pageLimit="+scorePrefabs.Count+"&pageNum="+scorePage);
+        yield return request.SendWebRequest();
+        Score[] scoreList = JsonHelper.FromJson<Score>(request.downloadHandler.text);
 
-            // Place - everywhere if page not full
-            if(scoreList.value.Count < scorePrefabs.Count) {
-                for(int i = 0; i < scorePrefabs.Count; ++i) {
-                    scorePrefabs[i][0].GetComponent<Text>().text = ((i+1)+((scorePage-1)*scorePrefabs.Count)).ToString();
-                    scorePrefabs[i][1].GetComponent<Text>().text = "-";
-                    scorePrefabs[i][2].GetComponent<Text>().text = "-";
-                }
-                
+        // abort if page empty
+        if(scoreList.Length < 1) {
+            if (scorePage > 1) {
+                scorePage--;
             }
+            yield break;
+        }
 
-            // populate board
-            for(int i = 0; i < scoreList.value.Count; ++i) {
+        // Place - everywhere if page not full
+        if(scoreList.Length < scorePrefabs.Count) {
+            for(int i = 0; i < scorePrefabs.Count; ++i) {
                 scorePrefabs[i][0].GetComponent<Text>().text = ((i+1)+((scorePage-1)*scorePrefabs.Count)).ToString();
-                scorePrefabs[i][1].GetComponent<Text>().text = scoreList.value[i].username;
-                scorePrefabs[i][2].GetComponent<Text>().text = scoreList.value[i].score.ToString();
+                scorePrefabs[i][1].GetComponent<Text>().text = "-";
+                scorePrefabs[i][2].GetComponent<Text>().text = "-";
             }
-        });
+            
+        }
+
+        // populate board
+        for(int i = 0; i < scoreList.Length; ++i) {
+            scorePrefabs[i][0].GetComponent<Text>().text = ((i+1)+((scorePage-1)*scorePrefabs.Count)).ToString();
+            scorePrefabs[i][1].GetComponent<Text>().text = scoreList[i].username;
+            scorePrefabs[i][2].GetComponent<Text>().text = scoreList[i].score.ToString();
+        }
     }
     
 }
