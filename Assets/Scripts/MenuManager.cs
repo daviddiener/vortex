@@ -43,7 +43,7 @@ public class MenuManager : MonoBehaviour
     private float timer = 0;
     private bool countTime = false;
     private int scorePage = 1;
-    private const string backend_URI = "https://vortex-backend.onrender.com/scores";
+    private const string backend_URI = "https://vortex.daviddiener.de/scores";
 
     void Start() {
         AddBonusPoints(0);
